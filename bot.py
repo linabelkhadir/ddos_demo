@@ -1,14 +1,34 @@
 import requests
 import time
+import os
 
-URL = "http://127.0.0.1:5001"
+URL = os.getenv("TARGET_URL", "http://host.docker.internal:5001")
+PROFILE = os.getenv("PROFILE", "vm")
 
-print("BOT STARTED")
+PROFILES = {
+    "vm": {
+        "sleep": 0.5,
+        "timeout": 2,
+        "headers": {"User-Agent": "Simulated-VM"}
+    },
+    "cloud": {
+        "sleep": 0.1,
+        "timeout": 1,
+        "headers": {"User-Agent": "Simulated-Cloud"}
+    }
+}
+
+profile = PROFILES[PROFILE]
+
+print(f"[BOT] profile={PROFILE}")
 
 while True:
     try:
-        r = requests.get(URL, timeout=1)
-        print("Status:", r.status_code)
-    except Exception as e:
-        print("Error:", e)
-    time.sleep(0.2)
+        requests.get(
+            URL,
+            headers=profile["headers"],
+            timeout=profile["timeout"]
+        )
+    except:
+        pass
+    time.sleep(profile["sleep"])
