@@ -1,0 +1,8 @@
+FROM python:3.11-alpine
+
+WORKDIR /app
+COPY server.py .
+
+RUN pip install flask flask-limiter
+
+CMD ["python", "server.py"]

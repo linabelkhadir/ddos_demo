@@ -1,8 +1,315 @@
-version: "3.9"
+version: "3.8"
 
 services:
-  bot:
-    build: .
+
+  # SERVER
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "5001:5001"
+
+   # GATEWAYS (10)
+
+  gateway1:
+    build: ./gateway
     environment:
-      TARGET_URL: http://host.docker.internal:5001
-      PROFILE: vm
+      FAKE_IP: 10.0.0.1
+    depends_on: [server]
+
+  gateway2:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.2
+    depends_on: [server]
+
+  gateway3:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.3
+    depends_on: [server]
+
+  gateway4:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.4
+    depends_on: [server]
+
+  gateway5:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.5
+    depends_on: [server]
+
+  gateway6:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.6
+    depends_on: [server]
+
+  gateway7:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.7
+    depends_on: [server]
+
+  gateway8:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.8
+    depends_on: [server]
+
+  gateway9:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.9
+    depends_on: [server]
+
+  gateway10:
+    build: ./gateway
+    environment:
+      FAKE_IP: 10.0.0.10
+    depends_on: [server]
+
+  # BOTS (30 → 3 per gateway)
+
+  bot_gw1_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway1:8080
+    depends_on: [gateway1]
+
+  bot_gw1_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway1:8080
+    depends_on: [gateway1]
+
+  bot_gw1_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway1:8080
+    depends_on: [gateway1]
+
+  bot_gw2_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway2:8080
+    depends_on: [gateway2]
+
+  bot_gw2_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway2:8080
+    depends_on: [gateway2]
+
+  bot_gw2_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway2:8080
+    depends_on: [gateway2]
+
+  bot_gw3_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway3:8080
+    depends_on: [gateway3]
+
+  bot_gw3_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway3:8080
+    depends_on: [gateway3]
+
+  bot_gw3_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway3:8080
+    depends_on: [gateway3]
+
+  bot_gw4_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway4:8080
+    depends_on: [gateway4]
+
+  bot_gw4_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway4:8080
+    depends_on: [gateway4]
+
+  bot_gw4_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway4:8080
+    depends_on: [gateway4]
+
+  bot_gw5_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway5:8080
+    depends_on: [gateway5]
+
+  bot_gw5_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway5:8080
+    depends_on: [gateway5]
+
+  bot_gw5_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway5:8080
+    depends_on: [gateway5]
+
+  bot_gw6_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway6:8080
+    depends_on: [gateway6]
+
+  bot_gw6_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway6:8080
+    depends_on: [gateway6]
+
+  bot_gw6_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway6:8080
+    depends_on: [gateway6]
+
+  bot_gw7_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway7:8080
+    depends_on: [gateway7]
+
+  bot_gw7_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway7:8080
+    depends_on: [gateway7]
+
+  bot_gw7_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway7:8080
+    depends_on: [gateway7]
+
+  bot_gw8_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway8:8080
+    depends_on: [gateway8]
+
+  bot_gw8_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway8:8080
+    depends_on: [gateway8]
+
+  bot_gw8_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway8:8080
+    depends_on: [gateway8]
+
+  bot_gw9_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway9:8080
+    depends_on: [gateway9]
+
+  bot_gw9_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway9:8080
+    depends_on: [gateway9]
+
+  bot_gw9_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway9:8080
+    depends_on: [gateway9]
+
+  bot_gw10_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway10:8080
+    depends_on: [gateway10]
+
+  bot_gw10_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway10:8080
+    depends_on: [gateway10]
+
+  bot_gw10_3:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      TARGET_URL: http://gateway10:8080
+    depends_on: [gateway10]
